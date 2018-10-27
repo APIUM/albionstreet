@@ -1,20 +1,41 @@
-function importVideoList(file) {
-	{
-    var rawFile = new XMLHttpRequest();
-    rawFile.open("GET", file, false);
-    rawFile.onreadystatechange = function () {
-    	if(rawFile.readyState === 4) {
-        	if(rawFile.status === 200 || rawFile.status == 0) {
-				var allText = rawFile.responseText;
-				alert(allText);
-			}
-		}
-			    
+var videos = ["EKyirtVHsK0", "uHc8cqgmYTQ" , "f9gJFnBFNt0", "cjnW9zRTfuQ", "E7V0I57Sw1A", "CTR1oZimeAM", "mBjXj1BPFKU", "UQePS1HEtHE", "R5veovr3_Zw"];
+
+// generates the video xy coords
+function generatePositions() {
+	var sizeX = Math.floor(Math.random() * ((window.outerWidth / 3) - (window.outerWidth / 5)) + (window.outerWidth / 5));
+	if (window.matchMedia("(orientation:portrait)").matches) {
+		var x = Math.floor(Math.random() * (window.outerWidth - sizeX)+ 1);
+		var y = Math.floor(Math.random() * (window.outerHeight - (sizeX*0.5625) - 200) + 100);
+		console.log("Screen in Portrait");
 	}
-	rawFile.send(null);
+	else {
+		// Screen in landscape obviously
+		var x = Math.floor(Math.random() * (window.outerWidth - sizeX - 80) + 80);
+		var y = Math.floor(Math.random() * (window.outerHeight - (sizeX*0.7)) + 1);
+		console.log("Screen in Landscape");
 	}
+	return([x,y,sizeX]);
 }
 
-var videos = [""]
+function spawnVideo(videoId) {
+	// get xy	
+	var coords = generatePositions();
+	console.log("X %s %d", videoId, coords[0]);
+	console.log("Y %s %d", videoId, coords[1]);
+	var iFramevideo = document.createElement("iframe");
+	iFramevideo.setAttribute("src", `https://www.youtube.com/embed/${videoId}?autoplay=1&mute=1&controls=0&showinfo=0&loop=1&modestbranding=1`);
+	console.log(`https://www.youtube.com/embed/${videoId}`);
+	iFramevideo.setAttribute("width", coords[2]);
+	iFramevideo.setAttribute("height", coords[2]*0.5625);
+	console.log(coords[2])
+	iFramevideo.style.position = "absolute";
+	iFramevideo.style.left = (`${coords[0]}px`);
+	iFramevideo.style.top = (`${coords[1]}px`);
+	document.body.appendChild(iFramevideo);
+}
 
-importVideoList("file:///../resources/videos.txt")
+for (video in videos) {
+	spawnVideo(videos[video]);
+}
+
+

@@ -1,0 +1,55 @@
+@media only screen 
+and (orientation: portrait) {
+	.title {
+		text-align:center;
+		
+		padding: 5px;
+		background-color: 6A7175;
+		margin:-8px;
+	}
+
+	.title h1 {
+		color: white;
+		text-align: center;
+		font-family: 'Karla', cursive;
+		font-variant-caps: small-caps;
+		letter-spacing: 10px; 
+	}
+}
+@media only screen 
+and (orientation: landscape) {
+	.title {
+		background-color: 6A7175;
+
+		width: 100vh;
+		transform:rotate(-90deg) translate(-50%, 0);
+		transform-origin: left top;
+
+		position: absolute;
+		top:50%;
+		left:0;
+
+
+		text-align: center;
+	}
+
+	.title h1 {
+		color: white;
+		text-align: center;
+		font-family: 'Karla', cursive;
+		font-variant-caps: small-caps;
+		letter-spacing: 10px; 
+
+	}
+}
+
+.footer {
+	position: absolute;
+	right: 0;
+	bottom: 0;
+	left: 0;
+	padding: 1rem;
+	text-align: right;
+	font-family: 'Karla', cursive;
+	color: 6A7175;
+}
