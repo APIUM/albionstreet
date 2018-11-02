@@ -2,17 +2,33 @@ var videos = ["EKyirtVHsK0", "uHc8cqgmYTQ" , "f9gJFnBFNt0", "cjnW9zRTfuQ", "E7V0
 
 // generates the video xy coords
 function generatePositions() {
+	var iOS = /iPad|iPhone|iPod/.test(navigator.userAgent) && !window.MSStream;
 	var sizeX = Math.floor(Math.random() * ((window.outerWidth / 3) - (window.outerWidth / 5)) + (window.outerWidth / 5));
-	if (window.matchMedia("(orientation:portrait)").matches) {
-		var x = Math.floor(Math.random() * (window.outerWidth - sizeX)+ 1);
-		var y = Math.floor(Math.random() * (window.outerHeight - (sizeX*0.5625) - 200) + 100);
-		console.log("Screen in Portrait");
+	var iOSCount = 0;
+
+	if (iOS) {
+		var x = (window.innerWidth * 0.1);
+		if (iOSCount == 0) {
+			var y = (window.innerWidth * 0.1 + 100);
+		} 
+		else {
+			var y = (iOSCount * (window.innerWidth * 0.5625));
+		}
+		var sizeX = (window.innerWidth - (window.innerWidth * 0.2));
+		
 	}
 	else {
-		// Screen in landscape obviously
-		var x = Math.floor(Math.random() * (window.outerWidth - sizeX - 80) + 80);
-		var y = Math.floor(Math.random() * (window.outerHeight - (sizeX*0.7)) + 1);
-		console.log("Screen in Landscape");
+		if (window.matchMedia("(orientation:portrait)").matches) {
+			var x = Math.floor(Math.random() * (window.outerWidth - sizeX)+ 1);
+			var y = Math.floor(Math.random() * (window.outerHeight - (sizeX*0.5625) - 200) + 100);
+			console.log("Screen in Portrait");
+		}
+		else {
+			// Screen in landscape obviously
+			var x = Math.floor(Math.random() * (window.outerWidth - sizeX - 80) + 80);
+			var y = Math.floor(Math.random() * (window.outerHeight - (sizeX*0.7)) + 1);
+			console.log("Screen in Landscape");
+		}
 	}
 	return([x,y,sizeX]);
 }
